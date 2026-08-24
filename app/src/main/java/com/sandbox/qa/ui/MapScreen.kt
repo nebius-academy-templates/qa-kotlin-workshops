@@ -428,6 +428,20 @@ private fun RideSearchContent(
                         .testTag("map_to_field"),
             )
             Spacer(Modifier.height(8.dp))
+            Button(
+                onClick = onRefresh,
+                enabled =
+                    state.pickup.isNotBlank() &&
+                        state.destination.isNotBlank() &&
+                        !state.loading,
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .testTag("map_search_button"),
+            ) {
+                Text("Find offers")
+            }
+            Spacer(Modifier.height(8.dp))
             Text(
                 text =
                     if (state.pickup.isBlank()) {
@@ -435,7 +449,7 @@ private fun RideSearchContent(
                     } else if (state.destination.isBlank()) {
                         "Enter a destination to see tariffs"
                     } else {
-                        "Pull down to refresh tariffs"
+                        "Tap Find offers to load tariffs"
                     },
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
