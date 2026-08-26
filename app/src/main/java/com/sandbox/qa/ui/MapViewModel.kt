@@ -88,6 +88,7 @@ class MapViewModel(
                 statusMessage = null,
             )
         }
+        scheduleRouteSearchIfComplete()
     }
 
     fun onDestinationChange(value: String) {
@@ -103,6 +104,17 @@ class MapViewModel(
                 statusMessage = null,
             )
         }
+        scheduleRouteSearchIfComplete()
+    }
+
+    private fun scheduleRouteSearchIfComplete() {
+        val state = _uiState.value
+        if (state.pickup.isBlank() || state.destination.isBlank()) return
+        routeSearchJob =
+            viewModelScope.launch {
+                delay(ROUTE_DEBOUNCE_MS)
+                loadRides(keepCurrentRides = false)
+            }
     }
 
     fun onRideSelected(id: Int) {
@@ -307,6 +319,7 @@ class MapViewModel(
     }
 
     companion object {
+        private const val ROUTE_DEBOUNCE_MS = 350L
         private const val MIN_DRIVER_SEARCH_MS = 1_200L
 
         val Factory: ViewModelProvider.Factory =
