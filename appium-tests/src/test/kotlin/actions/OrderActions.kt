@@ -35,6 +35,22 @@ object OrderActions {
         assertEquals(expected, OrderHistoryPage.orderPrice(orderId).text, "price of order $orderId")
     }
 
+    private var rememberedPrice: String = ""
+
+    /** Keeps the fare a completed ride reported, for a later history comparison. */
+    fun rememberCompletedPrice(price: String) {
+        rememberedPrice = price
+    }
+
+    fun assertHistoryPriceMatchesRemembered(orderId: Int) {
+        OrderHistoryPage.title.waitFor(15)
+        assertEquals(
+            rememberedPrice,
+            OrderHistoryPage.orderPrice(orderId).text,
+            "price of order $orderId",
+        )
+    }
+
     fun assertOrderAbsent(orderId: Int) {
         OrderHistoryPage.title.waitFor(15)
         assertFalse(OrderHistoryPage.orderPrice(orderId).isPresent(), "order $orderId should be absent")
@@ -44,5 +60,6 @@ object OrderActions {
         OrderHistoryPage.backButton.click()
         MapPage.destinationField.waitFor()
         MapPage.pullToRefresh.waitFor()
+        assertFalse(MapPage.drawerOrdersItem.isPresent(), "side drawer should be closed")
     }
 }

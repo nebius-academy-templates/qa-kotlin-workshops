@@ -189,11 +189,18 @@ object MapActions {
         assertEquals(expected, MapPage.driverRoute.text, "driver route")
     }
 
-    fun completeRide(expectedPrice: String) {
+    /** Ends the demo ride and waits for the completion screen. */
+    fun completeRide() {
         MapPage.completeRideButton.click()
         assertEquals("Ride completed", MapPage.completedTitle.text, "completed ride title")
-        assertEquals(expectedPrice, MapPage.completedPrice.text, "completed ride price")
     }
+
+    fun assertCompletedPrice(expected: String) {
+        assertEquals(expected, MapPage.completedPrice.text, "completed ride price")
+    }
+
+    /** Returns the price shown on the completion screen. */
+    fun readCompletedPrice(): String = MapPage.completedPrice.text
 
     fun cancelRide() {
         MapPage.cancelRideButton.click()

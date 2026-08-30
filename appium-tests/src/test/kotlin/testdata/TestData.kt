@@ -12,6 +12,7 @@ object TestData {
     const val DESTINATION = "Market Street"
     const val YELLOW_PRICE_ON_MAP = "~29.70 €" // map list: tilde
     const val YELLOW_PRICE_IN_HISTORY = "29.70 €"
+    const val COMPLETED_RIDE_ROUTE = "Oak Avenue → Market Street"
     const val DRIVER_FOUND_NOTIFICATION = "Alex Morgan arrives in 4 min · Toyota Corolla"
     const val RIDE_COMPLETED_NOTIFICATION = "Oak Avenue → Market Street · 29.70 €"
     const val RIDE_CANCELLED_NOTIFICATION = "Oak Avenue → Market Street"
